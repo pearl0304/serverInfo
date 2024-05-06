@@ -21,6 +21,7 @@
     "monent": "^0.0.2-security",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
+    "pg": "^8.11.5",
     "prettier": "^3.2.5",
     "scss": "^0.2.4"
   },
