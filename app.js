@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import RecipeRoutes from './routes/recipeRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 class App {
   constructor() {
@@ -22,7 +22,7 @@ class App {
     this.app.get('/', (req, res) => {
       res.send('Hello World!');
     });
-    this.app.use('/recipes', RecipeRoutes);
+    this.app.use('/user', userRoutes);
   }
 
   listen(port) {

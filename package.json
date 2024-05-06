@@ -14,13 +14,15 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "firebase": "^10.11.0",
     "helmet": "^7.1.0",
     "monent": "^0.0.2-security",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "scss": "^0.2.4"
   },
   "type": "module",
   "devDependencies": {
