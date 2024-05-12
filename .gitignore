@@ -1,5 +1,7 @@
 .idea/
 .env
+.env.development
+.env.productioin
 node_modules/
 package-lock.json
 logs/

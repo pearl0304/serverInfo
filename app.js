@@ -3,7 +3,12 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.js';
-import {pool} from './config.js';
+//import {pool} from './config.js';
+
+import dotenv from 'dotenv';
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
+});
 
 class App {
   constructor() {
@@ -38,8 +43,9 @@ class App {
   }
 
   listen(port) {
+    const serverUrl = process.env.SERVER_URL;
     this.app.listen(port, '0.0.0.0',() => {
-      console.log(`🚀 Listening on port http://localhost:${port}`);
+      console.log(`🚀 Listening on port ${serverUrl}:${port}`);
     });
   }
 }
