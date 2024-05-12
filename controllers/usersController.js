@@ -1,12 +1,12 @@
 import { Users } from '../models/users.js';
 
-export const getAllUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
-    const users = await Users.getAllUsers();
-    res.json(users);
+    const users = await Users.getUsers();
+    res.render('user/userList');
   } catch (e) {
     console.error(e);
-    res.status(500).json({ message: '🚨getAllUsers ERROR' });
+    res.status(500).json({ message: '🚨getUsers ERROR' });
   }
 };
 

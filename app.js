@@ -4,15 +4,25 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.js';
 //import {pool} from './config.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 import dotenv from 'dotenv';
+import * as path from 'node:path';
+import mainRoutes from './routes/mainRoutes.js';
+
 dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development',
 });
 
 class App {
   constructor() {
     this.app = express();
+    this.setViewEngine();
+    this.setStatic();
     this.setMiddlewares();
     this.setRoutes();
     //this.connectDatabase(); ## 나중에 주석 해제할 것
@@ -28,6 +38,15 @@ class App {
     });
   }
 
+  setViewEngine() {
+    this.app.set('view engine', 'ejs');
+    this.app.set('views', path.join(__dirname, 'src', 'views'));
+  }
+
+  setStatic() {
+    this.app.use(express.static(path.join(__dirname, 'src/public')));
+  }
+
   setMiddlewares() {
     this.app.use(express.json());
     this.app.use(cors());
@@ -36,15 +55,13 @@ class App {
   }
 
   setRoutes() {
-    this.app.get('/', (req, res) => {
-      res.send('Hello World!');
-    });
+    this.app.use('/', mainRoutes);
     this.app.use('/user', userRoutes);
   }
 
   listen(port) {
     const serverUrl = process.env.SERVER_URL;
-    this.app.listen(port, '0.0.0.0',() => {
+    this.app.listen(port, '0.0.0.0', () => {
       console.log(`🚀 Listening on port ${serverUrl}:${port}`);
     });
   }

@@ -1,7 +1,7 @@
 .idea/
 .env
 .env.development
-.env.productioin
+.env.production
 node_modules/
 package-lock.json
 logs/

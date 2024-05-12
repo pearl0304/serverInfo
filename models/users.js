@@ -1,10 +1,11 @@
 import data from '../databases/data.js';
-import { getAllUsers } from '../controllers/usersController.js';
+import {  getUsers } from '../controllers/usersController.js';
 
 export const Users = {
-  getAllUsers: async () => {
+  getUsers: async () => {
     try {
-      return data;
+      const userList = [];
+      return userList;
     } catch (e) {
       console.error(e.message);
       throw e;
