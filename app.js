@@ -3,19 +3,20 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.js';
-//import {pool} from './config.js';
 import { fileURLToPath } from 'url';
 import swaggerDocs from './swagger.js';
 import dotenv from 'dotenv';
 import * as path from 'node:path';
 import mainRoutes from './routes/mainRoutes.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 dotenv.config({
   path: process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
 });
+
+import { connectPostgres } from './config.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class App {
   constructor() {
@@ -25,17 +26,15 @@ class App {
     this.setMiddlewares();
     this.setRoutes();
     this.initSwagger();
-    //this.connectDatabase(); ## 나중에 주석 해제할 것
+    this.connectDatabase();
   }
 
-  connectDatabase() {
-    pool.connect((err, client, release) => {
-      if (err) {
-        return console.error('Error acquiring client', err.stack);
-      }
-      console.log('Database Connected Successfully');
-      release();
-    });
+  async connectDatabase() {
+    try {
+      await connectPostgres();
+    } catch (error) {
+      process.exit(1);
+    }
   }
 
   setViewEngine() {
