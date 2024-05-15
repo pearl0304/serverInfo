@@ -5,17 +5,16 @@ import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.js';
 //import {pool} from './config.js';
 import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-
+import swaggerDocs from './swagger.js';
 import dotenv from 'dotenv';
 import * as path from 'node:path';
 import mainRoutes from './routes/mainRoutes.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development',
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.production.development',
 });
 
 class App {
@@ -25,6 +24,7 @@ class App {
     this.setStatic();
     this.setMiddlewares();
     this.setRoutes();
+    this.initSwagger();
     //this.connectDatabase(); ## 나중에 주석 해제할 것
   }
 
@@ -54,6 +54,10 @@ class App {
     this.app.use(morgan('dev'));
   }
 
+  initSwagger() {
+    swaggerDocs(this.app, process.env.PORT || 3000);
+  }
+
   setRoutes() {
     this.app.use('/', mainRoutes);
     this.app.use('/user', userRoutes);
@@ -62,7 +66,7 @@ class App {
   listen(port) {
     const serverUrl = process.env.SERVER_URL;
     this.app.listen(port, '0.0.0.0', () => {
-      console.log(`🚀 Listening on port http://${serverUrl}:${port}`);
+      console.log(`🚀 Listening on port ${serverUrl}:${port}`);
     });
   }
 }
