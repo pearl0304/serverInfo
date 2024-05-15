@@ -66,7 +66,7 @@ class App {
   listen(port) {
     const serverUrl = process.env.SERVER_URL;
     this.app.listen(port, '0.0.0.0', () => {
-      console.log(`🚀 Listening on port ${serverUrl}:${port}`);
+      console.log(`🚀 Listening on port http://${serverUrl}:${port}`);
     });
   }
 }
