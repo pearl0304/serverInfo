@@ -5,8 +5,8 @@
   "scripts": {
     "prettier": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node server.js",
-    "dev": "NODE_ENV=development nodemon --exec babel-node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,13 +24,15 @@
     "pg": "^8.11.5",
     "prettier": "^3.2.5",
     "scss": "^0.2.4",
-    "swagger-jsdoc": "^6.2.8"
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "type": "module",
   "devDependencies": {
     "@babel/cli": "^7.24.1",
     "@babel/core": "^7.24.4",
     "@babel/node": "^7.23.9",
-    "@babel/preset-env": "^7.24.4"
+    "@babel/preset-env": "^7.24.4",
+    "cross-env": "^7.0.3"
   }
 }
